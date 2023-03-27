@@ -29,15 +29,30 @@
         }
         ,{
             "path" : "pages/my/my",
-            "style" :                                                                                    
+            "style" :                                                           
             {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
-            
+
         }
     ],
-	"globalStyle": {
+	"subPackages": [
+	  {
+	    "root": "subpkg",
+      "pages": [{
+                    "path" : "goods_list/goods_list",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
+	  }
+	],
+  "globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "ikun优购",
 		"navigationBarBackgroundColor": "#7BDAF7",
