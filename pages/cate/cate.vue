@@ -29,7 +29,9 @@
 </template>
 
 <script>
+  import badgeMix from '@/mixins/tabbar-badge.js'
   export default {
+    mixins: [badgeMix],
     data() {
       return {
         // wh窗口高度
@@ -42,7 +44,7 @@
         cateLevel2:[],
         // 滚动条距离顶部距离
         scrollTop:0
-      };
+      }
     },
     onLoad(){
       // 将当前系统的信息赋值给sysInfo常量

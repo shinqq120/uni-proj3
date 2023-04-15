@@ -37,6 +37,9 @@
 
         }
     ],
+"requiredPrivateInfos": {
+    "chooseAddress": true
+  },
 	"subPackages": [
 	  {
 	    "root": "subpkg",

@@ -24,7 +24,7 @@
       </view>
     </view>
     <!-- 运费 -->
-    <view class="yf">快递：免运费</view>
+    <view class="yf">快递：免运费 --{{cart.length}}</view>
     </view>
     <!-- 商品详情信息 -->
     <rich-text :nodes="goods_info.goods_introduce"></rich-text>
@@ -32,7 +32,31 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
+  import { mapMutations } from 'vuex'
+  import{mapGetters} from 'vuex'
   export default {
+    // 监听属性
+    watch:{
+      // 监听total值的变化  
+      total:{
+        handler(newVal){
+          // 定义'发现结果'变量 找到购物车按钮的配置对象
+          const findResult=this.options.find((x)=>x.text==='购物车')
+          if(findResult){
+            // 为购物车按钮的info属性赋值
+            findResult.info=newVal
+          }
+        },
+        // 是否在页面初次加载后立即调用
+        immediate:true
+      }
+    },
+    computed:{
+      ...mapState('m_cart',['cart']),
+      // 将m_cart模块中名称为total的getter映射到当前页面中使用
+      ...mapGetters('m_cart',['total'])
+    },
     onLoad(options) {
       // 获取商品id
       const goods_id=options.goods_id
@@ -40,6 +64,22 @@
       this.getGoodsDetail(goods_id)
     },
     methods:{
+      buttonClick(e){
+        // 判断是否点击看加入购物车按钮
+        if(e.content.text==='加入购物车'){
+        // 定义一个商品的信息对象
+        const goods={
+          goods_id: this.goods_info.goods_id,
+          goods_name: this.goods_info.goods_name,
+          goods_price:  this.goods_info.goods_price,
+          goods_count: 1,
+          goods_small_log:  this.goods_info.goods_small_logo,
+          goods_state:  true
+        }   
+        this.addToCart(goods)
+        } 
+      }, 
+      ...mapMutations('m_cart',['addToCart']),
       onClick(e){
         if(e.content.text==='购物车'){
           // 跳转到购物车页面
@@ -74,7 +114,7 @@
         },{
           icon:'cart',
           text:'购物车',
-          info:2
+          info:0
         }],
         // 右侧按钮的配置对象
         buttonGroup:[{
