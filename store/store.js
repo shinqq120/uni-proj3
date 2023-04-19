@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import moduleCart from '@/store/cart.js'
-import moduleUser from '@/store/user.js'
+import moduleCart from './cart.js'
+import moduleUser from './user.js'
  
 Vue.use(Vuex)
 

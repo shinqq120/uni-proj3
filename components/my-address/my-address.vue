@@ -39,16 +39,16 @@
     methods: {
       ...mapMutations('m_user', ['updateAddress']),
       async chooseAddress() {
-        const [err, succ] = await uni.chooseAddress().catch(err => err)
-        if (err === null && succ.errMsg === 'chooseAddress:ok') {
-          // this.address = succ
-          this.updateAddress(succ)
+        const address = await uni.chooseAddress().catch((err) => err)
+        if (address.errMsg === 'chooseAddress:ok') {
+          this.updateAddress(address)
         }
 
-        if (err && (err.errMsg === 'chooseAddress:fail auth deny' || err.errMsg === 'chooseAddress:fail authorize no response')) {
+        if (address && (address.errMsg === 'chooseAddress:fail auth deny' || address.errMsg === 'chooseAddress:fail authorize no response')) {
           // 通过调用这个方法，让用户重新授权
           this.reAuth()
         }
+
       },
       // 让用户重新授权
       async reAuth() {
